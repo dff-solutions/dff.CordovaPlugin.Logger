@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LoggerPlugin"
+        id="dff-cordova-plugin-logger" spec="0.1.0" version="0.1.0"
+        xmlns="http://www.phonegap.com/ns/plugins/1.0">
+
+    <name>Logger Plugin</name>
+    <description>Logger Plugin</description>
+    <keywords>cordova,device,console, log, logger</keywords>
+    <author>dff-solutions/AnthonyNahas</author>
+
+    <js-module name="LoggerPlugin" src="www/LoggerPlugin.js">
+        <clobbers target="LoggerPlugin"/>
+    </js-module>
+
+    <!-- Android  -->
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="LoggerPlugin">
+                <param name="android-package"
+                       value="com.dff.cordova.plugin.logger.LoggerPlugin"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <!--
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <service android:name="com.dff.cordova.plugin.logger.services.LoggerService"
+                     android:label="LoggerService"/>
+        </config-file>
+        -->
+
+
+        <source-file src="src/main/java/com/dff/cordova/plugin/logger/LoggerPlugin.java"
+                     target-dir="src/com/dff/cordova/plugin/logger"/>
+
+        <!-- @Gradle -->
+        <framework custom="true" src="build-logger-plugin.gradle" type="gradleReference"/>
+        <hook type="before_plugin_install" src="scripts/patch.js"/>
+    </platform>
+</plugin>
