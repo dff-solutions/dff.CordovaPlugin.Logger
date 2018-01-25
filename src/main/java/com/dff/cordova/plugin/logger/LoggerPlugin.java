@@ -1,12 +1,10 @@
 package com.dff.cordova.plugin.logger;
 
 import android.util.Log;
-import android.webkit.ConsoleMessage;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import org.apache.cordova.CordovaInterface;
-import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaWebView;
+import com.dff.cordova.plugin.logger.classes.CustomWebChromeClient;
+import org.apache.cordova.*;
+import org.apache.cordova.engine.SystemWebView;
+import org.apache.cordova.engine.SystemWebViewEngine;
 
 public class LoggerPlugin extends CordovaPlugin {
 
@@ -15,14 +13,21 @@ public class LoggerPlugin extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        WebView myWebView = (WebView) webView.getView();
-        myWebView.setWebChromeClient(new WebChromeClient() {
-            public boolean onConsoleMessage(ConsoleMessage cm) {
-                Log.d(TAG, cm.message() + " -- From line "
-                    + cm.lineNumber() + " of "
-                    + cm.sourceId());
-                return true;
-            }
-        });
+        Log.d(TAG, "on initialize console plugin");
+//    mContext = cordova.getActivity().getApplicationContext();
+//    String packageName = mContext.getPackageName();
+//    Resources resources = mContext.getResources();
+        CordovaActivity ca = (CordovaActivity) cordova.getActivity();
+        SystemWebView view = (SystemWebView) webView.getView();
+        CordovaWebViewEngine c14124 = webView.getEngine();
+
+
+        if (c14124 != null) {
+            Log.d(TAG, "Iam not null");
+        } else {
+            Log.d(TAG, "nullllllll");
+        }
+//        CustomWebChromeClient c = new CustomWebChromeClient((SystemWebViewEngine) webView.getEngine());
+        view.setWebChromeClient(new CustomWebChromeClient((SystemWebViewEngine) webView.getEngine()));
     }
 }
