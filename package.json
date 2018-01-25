@@ -1,0 +1,24 @@
+{
+  "name": "dff-cordova-plugin-logger",
+  "version": "0.1.0",
+  "description": "Logger Plugin",
+  "cordova": {
+    "id": "dff-cordova-plugin-logger",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dff-solutions/dff.CordovaPlugin.logger.git"
+  },
+  "keywords": [
+    "cordova",
+    "cordova-android",
+    "DI",
+    "Dagger2",
+    "Inversion Of Control"
+  ],
+  "author": "Anthony Nahas",
+  "license": "Apache-2.0"
+}
