@@ -36,4 +36,5 @@ dependencies {
     //@EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':cordova-android')
 }
