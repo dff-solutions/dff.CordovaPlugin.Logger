@@ -34,12 +34,12 @@ android {
 
     dependencies {
         compile fileTree(include: ['*.jar'], dir: 'libs')
-        //android support
+        // android support
         compile 'com.android.support:appcompat-v7:25.3.1'
         compile 'com.android.support:support-v4:25.3.1'
-        //@EventBus
+        // @EventBus
         compile 'org.greenrobot:eventbus:3.0.0'
-        //@Dagger 2
+        // @Dagger 2
         compile 'com.google.dagger:dagger:2.11'
         compile 'com.google.dagger:dagger-android:2.11'
         annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
