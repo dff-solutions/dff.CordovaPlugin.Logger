@@ -42,4 +42,5 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     testCompile 'junit:junit:4.12'
     compile project(path: ':cordova-android')
+    compile project(path: ':dff-cordova-plugin-dagger2')
 }
