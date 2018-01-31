@@ -8,12 +8,15 @@ import com.dff.cordova.plugin.logger.dagger.components.DaggerLoggerPluginCompone
 import com.dff.cordova.plugin.logger.dagger.modules.AppModule;
 import com.dff.cordova.plugin.logger.dagger.modules.CordovaModule;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.engine.SystemWebView;
 
 import javax.inject.Inject;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -23,33 +26,61 @@ import javax.inject.Inject;
  */
 public class LoggerPlugin extends CordovaPlugin {
 
-  private static final String TAG = "LoggerPlugin";
+    private static final String TAG = "LoggerPlugin";
 
-  @Inject
-  @ApplicationContext
-  Context mContext;
+    @Inject
+    @ApplicationContext
+    Context mContext;
 
-  @Inject
-  SystemWebView mSystemWebView;
+    @Inject
+    SystemWebView mSystemWebView;
 
-  @Inject
-  CustomWebChromeClient mCustomWebChromeClient;
+    @Inject
+    CustomWebChromeClient mCustomWebChromeClient;
 
-  @Inject
-  Realm mRealm;
+    @Inject
+    Realm mRealm;
 
-  @Override
-  public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-    super.initialize(cordova, webView);
-    Log.d(TAG, "on initialize console plugin");
+    @Override
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+        super.initialize(cordova, webView);
+        Log.d(TAG, "on initialize console plugin");
 
-    DaggerLoggerPluginComponent
-      .builder()
-      .appModule(new AppModule(cordova.getActivity().getApplication()))
-      .cordovaModule(new CordovaModule(webView))
-      .build()
-      .inject(this);
+        DaggerLoggerPluginComponent
+            .builder()
+            .appModule(new AppModule(cordova.getActivity().getApplication()))
+            .cordovaModule(new CordovaModule(webView))
+            .build()
+            .inject(this);
 
-    this.mSystemWebView.setWebChromeClient(mCustomWebChromeClient);
-  }
+        this.mSystemWebView.setWebChromeClient(mCustomWebChromeClient);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        Date targetDate = calendar.getTime();
+
+        // Build the query looking at all users:
+        RealmResults<com.dff.cordova.plugin.logger.classes.Log> result =
+            mRealm
+                .where(com.dff.cordova.plugin.logger.classes.Log.class)
+                .lessThan("timestamp", targetDate)
+                .findAllAsync();
+
+        mRealm.executeTransactionAsync(realm ->
+                realm
+                    .where(com.dff.cordova.plugin.logger.classes.Log.class)
+                    .lessThan("timestamp", targetDate)
+                    .findAll()
+                    .deleteAllFromRealm(),
+            () -> {
+                // Transaction was a success.
+                Log.d(TAG, "Delete of old logs is done");
+            }, error -> {
+                // Transaction failed and was automatically canceled.
+                Log.e(TAG, "Transaction failed and was automatically canceled for deleting logs--> "
+                    + " Error: "
+                    + error);
+            });
+    }
 }
