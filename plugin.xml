@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LoggerPlugin"
-        id="dff-cordova-plugin-logger" spec="1.0.0-1" version="1.0.0-1"
+        id="dff-cordova-plugin-logger" spec="1.0.0-2" version="1.0.0-2"
         xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Logger Plugin</name>
