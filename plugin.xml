@@ -37,6 +37,12 @@
                      target-dir="src/com/dff/cordova/plugin/logger/classes"/>
         <source-file src="src/main/java/com/dff/cordova/plugin/logger/classes/Log.java"
                      target-dir="src/com/dff/cordova/plugin/logger/classes"/>
+        <source-file src="src/main/java/com/dff/cordova/plugin/logger/dagger/components/LoggerPluginComponent.java"
+                     target-dir="src/com/dff/cordova/plugin/logger/dagger/components"/>
+        <source-file src="src/main/java/com/dff/cordova/plugin/logger/dagger/modules/AppModule.java"
+                     target-dir="src/com/dff/cordova/plugin/logger/dagger/modules"/>
+        <source-file src="src/main/java/com/dff/cordova/plugin/logger/dagger/modules/CordovaModule.java"
+                     target-dir="src/com/dff/cordova/plugin/logger/dagger/modules"/>
         <source-file src="src/main/java/com/dff/cordova/plugin/logger/LoggerPlugin.java"
                      target-dir="src/com/dff/cordova/plugin/logger"/>
         <source-file src="src/main/java/com/dff/cordova/plugin/logger/services/LoggerService.java"
