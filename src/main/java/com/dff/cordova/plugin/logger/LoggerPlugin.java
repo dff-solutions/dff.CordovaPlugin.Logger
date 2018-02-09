@@ -21,7 +21,7 @@ import java.util.Date;
 
 /**
  * @author Anthony Nahas
- * @version 0.1.2
+ * @version 1.0.0-beta
  * @since 26.01.18
  */
 public class LoggerPlugin extends CordovaPlugin {
