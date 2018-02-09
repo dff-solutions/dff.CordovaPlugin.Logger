@@ -5,22 +5,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-
+import android.util.Log;
 import com.dff.cordova.plugin.dagger2.annotations.ApplicationContext;
 import com.dff.cordova.plugin.dagger2.annotations.DefaultUncaughException;
 import com.dff.cordova.plugin.dagger2.annotations.Private;
 import com.dff.cordova.plugin.dagger2.annotations.Shared;
-
 import dagger.Module;
 import dagger.Provides;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
-
 import javax.inject.Singleton;
+import java.io.File;
 
 /**
  * The @Module annotation tells Dagger that the AppModule classes will provide dependencies for a part
@@ -34,85 +31,91 @@ import javax.inject.Singleton;
 @Module
 public class AppModule {
 
-  private Application mApp;
+    private static final String TAG = AppModule.class.getSimpleName();
 
-  public AppModule(Application app) {
-    this.mApp = app;
-    // Initialize Realm
-    Realm.init(this.mApp);
-  }
+    private Application mApp;
 
-  public Application getApp() {
-    return mApp;
-  }
+    public AppModule(Application app) {
+        this.mApp = app;
+        // Initialize Realm
+        Realm.init(this.mApp);
+    }
 
-  @Provides
-  @ApplicationContext
-  public Context provideContext() {
-    return mApp;
-  }
+    public Application getApp() {
+        return mApp;
+    }
 
-  @Provides
-  public Application provideApplication() {
-    return mApp;
-  }
+    @Provides
+    @ApplicationContext
+    public Context provideContext() {
+        return mApp;
+    }
 
-  @Provides
-  @Singleton
-  public EventBus provideEventBus() {
-    return EventBus.getDefault();
-  }
+    @Provides
+    public Application provideApplication() {
+        return mApp;
+    }
 
-  @Provides
-  @Singleton
-  @DefaultUncaughException
-  public Thread.UncaughtExceptionHandler provideDefaultThreadUncaughtExceptionHandler() {
-    return Thread.getDefaultUncaughtExceptionHandler();
-  }
+    @Provides
+    @Singleton
+    public EventBus provideEventBus() {
+        return EventBus.getDefault();
+    }
 
-  @Provides
-  @Singleton
-  @Shared
-  public SharedPreferences providesSharedPreferences() {
-    return PreferenceManager.getDefaultSharedPreferences(mApp);
-  }
+    @Provides
+    @Singleton
+    @DefaultUncaughException
+    public Thread.UncaughtExceptionHandler provideDefaultThreadUncaughtExceptionHandler() {
+        return Thread.getDefaultUncaughtExceptionHandler();
+    }
 
-  @Provides
-  @Singleton
-  @Private
-  public SharedPreferences providePrivateSharedPreferences() {
-    return mApp.getSharedPreferences("dff-cordova-plugin-logger", Context.MODE_PRIVATE);
-  }
+    @Provides
+    @Singleton
+    @Shared
+    public SharedPreferences providesSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(mApp);
+    }
 
-  // The RealmConfiguration is created using the builder pattern.
-  // The Realm file will be located in Context.getFilesDir() with name "myrealm.realm"
-  @Provides
-  public RealmConfiguration provideRealmConfiguration(@ApplicationContext Context context) {
+    @Provides
+    @Singleton
+    @Private
+    public SharedPreferences providePrivateSharedPreferences() {
+        return mApp.getSharedPreferences("dff-cordova-plugin-logger", Context.MODE_PRIVATE);
+    }
 
-    String externalStorageDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-    String packageName = context.getApplicationContext().getPackageName();
-    String path = externalStorageDir
-      + File.separator
-      + "Android"
-      + File.separator
-      + "data"
-      + File.separator
-      + packageName
-      + File.separator
-      + "realm"
-      + File.separator;
+    // The RealmConfiguration is created using the builder pattern.
+    // The Realm file will be located in Context.getFilesDir() with name "myrealm.realm"
+    @Provides
+    public RealmConfiguration provideRealmConfiguration(@ApplicationContext Context context) {
 
-    return new RealmConfiguration.Builder()
-      .directory(new File(path))
-      .name("logs.realm")
-      .schemaVersion(0)
-      .deleteRealmIfMigrationNeeded()
-      .build();
-  }
+        String externalStorageDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String packageName = context.getApplicationContext().getPackageName();
+        String path = externalStorageDir
+            + File.separator
+            + "Android"
+            + File.separator
+            + "data"
+            + File.separator
+            + packageName
+            + File.separator
+            + "realm"
+            + File.separator;
 
-  @Provides
-  public Realm providesRealm(RealmConfiguration realmConfiguration) {
-    return Realm.getInstance(realmConfiguration);
-  }
+        File file = new File(path);
+        Log.d(TAG, "File: " + file.getAbsolutePath() + " exists: " + file.exists());
+        Log.d(TAG, "File: " + file.getAbsolutePath() + " should be created: " + file.mkdirs());
+
+        return new RealmConfiguration.Builder()
+            .directory(new File(path))
+            .name("logs.realm")
+            .schemaVersion(0)
+            .deleteRealmIfMigrationNeeded()
+            .build();
+    }
+
+    @Provides
+    public Realm providesRealm(RealmConfiguration realmConfiguration) {
+        return Realm.getInstance(realmConfiguration);
+    }
 
 }
