@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LoggerPlugin"
-        id="dff-cordova-plugin-logger" spec="1.0.0-beta" version="1.0.0-beta"
-        xmlns="http://www.phonegap.com/ns/plugins/1.0">
+    id="dff-cordova-plugin-logger" spec="1.0.0-beta" version="1.0.0-beta"
+    xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Logger Plugin</name>
     <description>Logger Plugin</description>
@@ -9,19 +9,18 @@
     <author>dff-solutions/AnthonyNahas</author>
 
     <js-module name="LoggerPlugin" src="www/LoggerPlugin.js">
-        <clobbers target="LoggerPlugin"/>
+        <clobbers target="LoggerPlugin" />
     </js-module>
 
     <dependency id="dff-cordova-plugin-dagger2"
-                url="https://github.com/dff-solutions/dff.CordovaPlugin.Dagger2.git"/>
+        url="https://github.com/dff-solutions/dff.CordovaPlugin.Dagger2.git" />
 
     <!-- Android  -->
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="LoggerPlugin">
-                <param name="android-package"
-                       value="com.dff.cordova.plugin.logger.LoggerPlugin"/>
-                <param name="onload" value="true"/>
+                <param name="android-package" value="com.dff.cordova.plugin.logger.LoggerPlugin" />
+                <param name="onload" value="true" />
             </feature>
         </config-file>
 
@@ -33,24 +32,28 @@
         -->
 
 
-        <source-file src="src/main/java/com/dff/cordova/plugin/logger/classes/CustomWebChromeClient.java"
-                     target-dir="src/com/dff/cordova/plugin/logger/classes"/>
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/logger/classes/CustomWebChromeClient.java"
+            target-dir="src/com/dff/cordova/plugin/logger/classes" />
         <source-file src="src/main/java/com/dff/cordova/plugin/logger/classes/Log.java"
-                     target-dir="src/com/dff/cordova/plugin/logger/classes"/>
-        <source-file src="src/main/java/com/dff/cordova/plugin/logger/dagger/components/LoggerPluginComponent.java"
-                     target-dir="src/com/dff/cordova/plugin/logger/dagger/components"/>
+            target-dir="src/com/dff/cordova/plugin/logger/classes" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/logger/dagger/components/LoggerPluginComponent.java"
+            target-dir="src/com/dff/cordova/plugin/logger/dagger/components" />
         <source-file src="src/main/java/com/dff/cordova/plugin/logger/dagger/modules/AppModule.java"
-                     target-dir="src/com/dff/cordova/plugin/logger/dagger/modules"/>
-        <source-file src="src/main/java/com/dff/cordova/plugin/logger/dagger/modules/CordovaModule.java"
-                     target-dir="src/com/dff/cordova/plugin/logger/dagger/modules"/>
+            target-dir="src/com/dff/cordova/plugin/logger/dagger/modules" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/logger/dagger/modules/CordovaModule.java"
+            target-dir="src/com/dff/cordova/plugin/logger/dagger/modules" />
         <source-file src="src/main/java/com/dff/cordova/plugin/logger/LoggerPlugin.java"
-                     target-dir="src/com/dff/cordova/plugin/logger"/>
+            target-dir="src/com/dff/cordova/plugin/logger" />
         <source-file src="src/main/java/com/dff/cordova/plugin/logger/services/LoggerService.java"
-                     target-dir="src/com/dff/cordova/plugin/logger/services"/>
+            target-dir="src/com/dff/cordova/plugin/logger/services" />
 
 
         <!-- @Gradle -->
-        <framework custom="true" src="build-logger-plugin.gradle" type="gradleReference"/>
-        <hook type="before_plugin_install" src="scripts/patch.js"/>
+        <framework custom="true" src="build-logger-plugin.gradle" type="gradleReference" />
+        <hook src="scripts/patch.js" type="before_plugin_install" />
+        <hook src="scripts/patch.js" type="before_plugin_install" />
     </platform>
 </plugin>
