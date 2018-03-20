@@ -1,6 +1,6 @@
 {
   "name": "dff-cordova-plugin-logger",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "Logger Plugin",
   "cordova": {
     "id": "dff-cordova-plugin-logger",
