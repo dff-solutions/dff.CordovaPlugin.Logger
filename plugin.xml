@@ -53,7 +53,7 @@
 
         <!-- @Gradle -->
         <framework custom="true" src="build-logger-plugin.gradle" type="gradleReference" />
-        <hook src="scripts/patch.js" type="before_plugin_install" />
+        <source-file src="build-extras.gradle" target-dir="src/.." />
         <hook src="scripts/patch.js" type="before_plugin_install" />
     </platform>
 
