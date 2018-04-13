@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LoggerPlugin"
-    id="dff-cordova-plugin-logger" spec="1.0.0-beta.3" version="1.0.0-beta.3"
+    id="dff-cordova-plugin-logger" spec="1.0.0-beta.4" version="1.0.0-beta.4"
     xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Logger Plugin</name>
@@ -53,7 +53,6 @@
 
         <!-- @Gradle -->
         <framework custom="true" src="build-logger-plugin.gradle" type="gradleReference" />
-        <source-file src="build-extras.gradle" target-dir="src/.." />
         <hook src="scripts/patch.js" type="before_plugin_install" />
     </platform>
 
